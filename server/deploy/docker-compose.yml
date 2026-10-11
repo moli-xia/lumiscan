@@ -1,0 +1,22 @@
+services:
+  lumiscan:
+    build: .
+    image: lumiscan-server:latest
+    container_name: lumiscan
+    restart: unless-stopped
+    # Only nginx on the host can reach it (Docker-published ports bypass ufw, so never bind 0.0.0.0).
+    ports:
+      - "127.0.0.1:8090:8080"
+    environment:
+      LUMI_DATA: /data
+      LUMI_TZ: Asia/Shanghai
+      # The VPS has ~1 GB RAM shared with other services.
+      JAVA_OPTS: "-Xms48m -Xmx192m -XX:+UseSerialGC -XX:MaxMetaspaceSize=96m -Xss512k -XX:+ExitOnOutOfMemoryError -Duser.timezone=Asia/Shanghai"
+    volumes:
+      - ./data:/data
+    mem_limit: 384m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

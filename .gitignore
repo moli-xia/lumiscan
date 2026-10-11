@@ -1,0 +1,23 @@
+.gradle/
+.kotlin/
+build/
+/local.properties
+/.idea/
+*.iml
+.DS_Store
+/captures
+.externalNativeBuild
+.cxx
+
+# Server
+/server/build/
+/server/.gradle/
+/server/.kotlin/
+/server/data/
+# TLS private key for the server (the public cert is also copied into the app)
+/server/deploy/tls/*.key
+
+# Signing keys and build outputs (APKs go to GitHub Releases)
+*.jks
+*.keystore
+*.apk
